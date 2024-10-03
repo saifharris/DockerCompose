@@ -3,8 +3,7 @@ const { MongoClient } = require("mongodb");
 
 const app = express();
 const port = 5000;
-const mongoURL = "mongodb://mongo:27017"; // Docker Compose will create a MongoDB service
-
+const mongoURL = "mongodb://root:example@mongo:27017";
 let db;
 
 MongoClient.connect(mongoURL, { useUnifiedTopology: true })
@@ -18,7 +17,7 @@ app.get("/api/data", async (req, res) => {
   try {
     const collection = db.collection("test");
     const document = await collection.findOne({ name: "sample" });
-    res.json({ message: document ? document.message : "No data found" });
+    res.json({ message: document ? document.message : "Hi from Mlops" });
   } catch (err) {
     res.status(500).send(err.message);
   }
